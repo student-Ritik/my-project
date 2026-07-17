@@ -1,0 +1,26 @@
+# Robots.txt for Kabir Aasram Website
+# Google, Bing और अन्य सर्च इंजन के लिए
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Google के लिए विशेष अनुमति
+User-agent: Googlebot
+Allow: /
+
+# Bing के लिए विशेष अनुमति
+User-agent: Bingbot
+Allow: /
+
+# Crawl-delay (सेकंड में)
+Crawl-delay: 1
+
+# Sitemap स्थान
+Sitemap: https://www.kabiraasram.org/sitemap.xml
+
+# अन्य निर्देश
+User-agent: MJ12bot
+Disallow: /

@@ -1,0 +1,17 @@
+{
+  "name": "Kabir Aasram",
+  "short_name": "Kabir",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f9f7f4",
+  "theme_color": "#8B4513",
+  "description": "कबीर आश्रम जयनगर की आध्यात्मिक जानकारी, कार्यक्रम और संपर्क जानकारी",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
