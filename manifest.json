@@ -1,0 +1,17 @@
+{
+  "name": "India Travel Portal",
+  "short_name": "Travel Portal",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "description": "Explore Incredible India destinations and book your dream trip",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
