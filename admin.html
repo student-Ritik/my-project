@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — India Travel Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<>
+    <body>
+
+  <!-- ADMIN NAVBAR -->
+  <nav class="admin-nav">
+  <div class="logo">⚙️ Admin Panel</div>
+  <ul>
+    <li><a href="index.html">View Site</a></li>
+    
+    <!-- YAHAN HAI — Isko replace karo! -->
+    <li>
+      <a href="login.html" 
+         onclick="sessionStorage.removeItem('isAdmin')" 
+         class="logout-btn">
+         Logout
+      </a>
+    </li>
+    
+  </ul>
+</nav>
+
+  <!-- ADMIN DASHBOARD -->
+  <section class="admin-section">
+
+    <!-- STATS CARDS -->
+    <div class="stat-card">
+  <h3>🧳 Total Bookings</h3>
+  <p class="stat-number" id="totalBookings">0</p>
+</div>
+
+<div class="stat-card">
+  <h3>👥 Total Users</h3>
+  <p class="stat-number">342</p>
+</div>
+
+<div class="stat-card">
+  <h3>🗺️ Destinations</h3>
+  <p class="stat-number">8</p>
+</div>
+
+<div class="stat-card">
+  <h3>💰 Revenue</h3>
+  <p class="stat-number" id="totalRevenue">₹0</p>
+</div>
+
+    <!-- RECENT BOOKINGS TABLE -->
+    <div class="admin-table-section">
+      <h2>Recent Bookings</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>Destination</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsTable">
+  <!-- JS se fill hoga! -->
+</tbody>
+      </table>
+    </div>
+
+  </section>
+
+<script>
+  // Check karo admin hai ya nahi
+  const isAdmin = sessionStorage.getItem('isAdmin');
+  
+  if(isAdmin !== 'true') {
+    // Admin nahi hai — bhago!
+    alert('❌ Access Denied! Admins Only!');
+    window.location.href = 'login.html';
+  }
+</script>
+<script src="admin.js"></script>
+</body>
+</html>

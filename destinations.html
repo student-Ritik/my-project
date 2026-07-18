@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - India Travel Portal </title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+     <!-- NAVBAR -->
+ <nav>
+  <div class="logo">🗺️ India Travel</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="destinations.html">Destinations</a></li>
+    <li><a href="#">Bookings</a></li>
+    <li><a href="login.html">Login</a></li>
+  </ul>
+</nav>
+  <!-- PAGE HERO -->
+<section class="page-hero">
+  <h1>Explore All Destinations</h1>
+  <p>Discover the beauty of Incredible India</p>
+</section>
+<!-- FILTER BUTTONS -->
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="beach">🏖️ Beaches</button>
+  <button class="filter-btn" data-filter="mountain">🏔️ Mountains</button>
+  <button class="filter-btn" data-filter="heritage">🏯 Heritage</button>
+  <button class="filter-btn" data-filter="wildlife">🐯 Wildlife</button>
+</div>
+<!-- DESTINATIONS GRID -->
+<section class="dest-section">
+
+  <div class="dest-grid">
+
+    <div class="dest-card" data-category="beach">
+      <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&h=250&fit=crop" alt="Goa"/>
+      <div class="dest-info">
+        <h3>Goa</h3>
+        <p>🏖️ Beach • ⭐ 4.8 • 💰 ₹8,000/person</p>
+       <a href="place-details.html?place=goa">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="mountain">
+      <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=400&h=250&fit=crop" alt="Manali"/>
+      <div class="dest-info">
+        <h3>Manali</h3>
+        <p>🏔️ Mountain • ⭐ 4.7 • 💰 ₹10,000/person</p>
+        <a href="place-details.html?place=manali">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="heritage">
+      <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?w=400&h=250&fit=crop" alt="Jaipur"/>
+      <div class="dest-info">
+        <h3>Jaipur</h3>
+        <p>🏯 Heritage • ⭐ 4.6 • 💰 ₹7,000/person</p>
+        <a href="place-details.html?place=jaipur">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="beach">
+      <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=400&h=250&fit=crop" alt="Kerala"/>
+      <div class="dest-info">
+        <h3>Kerala</h3>
+        <p>🏖️ Beach • ⭐ 4.9 • 💰 ₹9,000/person</p>
+        <a href="place-details.html?place=kerala">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="mountain">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Shimla"/>
+      <div class="dest-info">
+        <h3>Shimla</h3>
+        <p>🏔️ Mountain • ⭐ 4.5 • 💰 ₹6,000/person</p>
+       <a href="place-details.html?place=shimla">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="heritage">
+      <img src="https://images.unsplash.com/photo-1548013146-72479768bada?w=400&h=250&fit=crop" alt="Agra"/>
+      <div class="dest-info">
+        <h3>Agra</h3>
+        <p>🏯 Heritage • ⭐ 4.7 • 💰 ₹5,000/person</p>
+        <a href="place-details.html?place=agra">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="wildlife">
+      <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?w=400&h=250&fit=crop" alt="Ranthambore"/>
+      <div class="dest-info">
+        <h3>Ranthambore</h3>
+        <p>🐯 Wildlife • ⭐ 4.6 • 💰 ₹12,000/person</p>
+        <a href="place-details.html?place=ranthambore">View Details →</a>
+      </div>
+    </div>
+
+    <div class="dest-card" data-category="heritage">
+      <img src="https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=400&h=250&fit=crop" alt="Varanasi"/>
+      <div class="dest-info">
+        <h3>Varanasi</h3>
+        <p>🏯 Heritage • ⭐ 4.8 • 💰 ₹6,500/person</p>
+       <a href="place-details.html?place=varanasi">View Details →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script src="destinations.js"></script>
+<!-- ADMIN FLOATING BUTTON -->
+<div id="adminFloat" style="display:none">
+  <button onclick="window.location.href='admin.html'" 
+          id="adminFloatBtn">
+    ⚙️ Admin Panel
+  </button>
+</div>
+<script>
+  const isAdmin = sessionStorage.getItem('isAdmin');
+  const adminFloat = document.getElementById('adminFloat');
+  if(isAdmin === 'true' && adminFloat) {
+    adminFloat.style.display = 'block';
+  }
+</script>
+</body>
+</html>

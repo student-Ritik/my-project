@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Details - India Travel Portal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">🗺️ India Travel</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="destinations.html">Destinations</a></li>
+      <li><a href="#">Bookings</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- PLACE HERO -->
+  <section class="place-hero" id="placeHero">
+    <div class="place-hero-content">
+      <h1 id="placeName">Loading...</h1>
+      <p id="placeInfo">Loading...</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="place-content">
+
+    <div class="place-left">
+      <h2>About</h2>
+      <p id="placeAbout">Loading...</p>
+
+      <h2>Highlights</h2>
+      <ul class="highlights" id="placeHighlights"></ul>
+    </div>
+
+    <div class="place-right">
+      <div class="booking-box">
+        <h3>Book This Trip</h3>
+        <p class="price" id="placePrice">₹0 <span>/ person</span></p>
+
+        <div class="booking-form">
+          <label>Check In</label>
+          <input type="date" />
+          <label>Check Out</label>
+          <input type="date" />
+          <label>Guests</label>
+          <select>
+            <option>1 Person</option>
+            <option>2 Persons</option>
+            <option>3 Persons</option>
+            <option>4 Persons</option>
+          </select>
+          <button class="book-btn">Book Now 🎉</button>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BACK BUTTON -->
+  <div class="back-btn-div">
+    <button onclick="window.location.href='destinations.html'" class="back-btn">
+      ← Back to Destinations
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 India Travel Portal | Made with ❤️ Jay Prakash</p>
+  </footer>
+
+  <script src="place-details.js"></script>
+
+  <!-- ADMIN FLOATING BUTTON -->
+  <div id="adminFloat" style="display:none">
+    <button onclick="window.location.href='admin.html'" id="adminFloatBtn">
+      ⚙️ Admin Panel
+    </button>
+  </div>
+  <script>
+    const isAdmin = sessionStorage.getItem('isAdmin');
+    const adminFloat = document.getElementById('adminFloat');
+    if(isAdmin === 'true' && adminFloat) {
+      adminFloat.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

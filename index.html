@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Travel Portal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- NAVBAR -->
+  <nav>
+  <div class="logo">🗺️ India Travel</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="destinations.html">Destinations</a></li>
+    <li><a href="#">Bookings</a></li>
+    <li><a href="login.html">Login</a></li>
+  </ul>
+</nav>
+  <!-- HERO SECTION -->
+  <section class="hero">
+   <h1>Explore Incredible India</h1>
+    <p>Mountains, Beaches, Temples & More — Your Journey Starts Here</p>
+    <div class="search-box">
+      <input 
+  type="text" 
+  id="searchInput"
+  placeholder="Search destinations... e.g. Goa, Manali" 
+/>
+      <button>Search 🔍</button>
+    </div>
+  </section>
+  <!-- POPULAR DESTINATIONS -->
+  <section class="destinations">
+    <h2>Popular Destinations</h2>
+
+    <div class="cards-container">
+
+      <!-- Card 1 -->
+<div class="card" data-name="goa">
+  <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&h=250&fit=crop" alt="Goa" />
+  <h3>Goa</h3>
+  <p>Beautiful beaches & nightlife</p>
+  <!-- Card 1 -->
+<button onclick="window.location.href='destinations.html'">
+  Explore Now
+</button>
+</div>
+
+    <!-- Card 2 -->
+  <div class="card" data-name="manali">
+  <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=400&h=250&fit=crop" alt="Manali" />
+  <h3>Manali</h3>
+  <p>Snow capped mountains & adventure</p>
+  <!-- Card 1 -->
+<button onclick="window.location.href='destinations.html'">
+  Explore Now
+</button>
+</div>
+
+     <!-- Card 3 -->
+      <div class="card" data-name="jaipur">
+  <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?w=400&h=250&fit=crop" alt="Jaipur" />
+  <h3>Jaipur</h3>
+  <p>Royal palaces & rich culture</p>
+  <!-- Card 1 -->
+<button onclick="window.location.href='destinations.html'">
+  Explore Now
+</button>
+</div>
+      <!-- Card 4 -->
+      <div class="card" data-name="kerala">
+  <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=400&h=250&fit=crop" alt="Kerala" />
+  <h3>Kerala</h3>
+  <p>Serene backwaters & greenery</p>
+  <!-- Card 1 -->
+<button onclick="window.location.href='destinations.html'">
+  Explore Now
+</button>
+</div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 India Travel Portal | Made with Jay prakash </p>
+  </footer>
+  <script src="script.js"></script>
+  <!-- ADMIN FLOATING BUTTON -->
+<div id="adminFloat" style="display:none">
+  <button onclick="window.location.href='admin.html'" 
+          id="adminFloatBtn">
+    ⚙️ Admin Panel
+  </button>
+</div>
+</body>
+</html>
