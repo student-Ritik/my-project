@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabir Aasram - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #8B4513;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid #D4AF37;
+            padding-bottom: 15px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin: 15px 0;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #D4AF37;
+            color: #8B4513;
+        }
+
+        .sidebar i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #8B4513;
+        }
+
+        .logout-btn {
+            background-color: #DC3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Sidebar logout button spacing */
+        .sidebar li.logout-item {
+            margin-top: 30px;
+        }
+
+        /* Search input styling */
+        .search-input {
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            width: 200px;
+        }
+
+        /* Hidden sections */
+        .hidden-section {
+            display: none;
+        }
+
+        .send-email-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .send-email-content {
+            padding: 20px;
+        }
+
+        .event-form-container {
+            margin-top: 20px;
+        }
+
+        /* Form select styling */
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Analytics content padding */
+        .analytics-content {
+            padding: 20px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #8B4513;
+        }
+
+        .card h3 {
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+
+        .card .number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #D4AF37;
+        }
+
+        .card .label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background-color: #8B4513;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h2 {
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f9f7f4;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #8B4513;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f9f7f4;
+        }
+
+        /* Status Badge */
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.new {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .badge.read {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .badge.replied {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge.upcoming {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .btn-view {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #8B4513;
+            border-bottom-color: #8B4513;
+        }
+
+        .tab-btn:hover {
+            color: #8B4513;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #8B4513;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .btn-submit {
+            background-color: #8B4513;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #8B4513;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>🙏 Kabir Aasram</h2>
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-chart-line"></i>डैशबोर्ड</a></li>
+                <li><a href="#" class="nav-link" data-page="contacts"><i class="fas fa-envelope"></i>संदेश</a></li>
+                <li><a href="#" class="nav-link" data-page="newsletter"><i class="fas fa-newspaper"></i>न्यूजलेटर</a></li>
+                <li><a href="#" class="nav-link" data-page="events"><i class="fas fa-calendar"></i>कार्यक्रम</a></li>
+                <li><a href="#" class="nav-link" data-page="analytics"><i class="fas fa-chart-bar"></i>विश्लेषण</a></li>
+                <li class="logout-item"><button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i>लॉगआउट</button></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div>
+                    <h1 id="page-title">डैशबोर्ड</h1>
+                </div>
+                <div id="user-info">
+                    Admin Panel
+                </div>
+            </div>
+
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page-content">
+                <div class="dashboard-grid" id="stats-grid">
+                    <div class="card">
+                        <h3>कुल संदेश</h3>
+                        <div class="number" id="total-messages">0</div>
+                        <div class="label">सभी समय</div>
+                    </div>
+                    <div class="card">
+                        <h3>नए संदेश</h3>
+                        <div class="number" id="new-messages">0</div>
+                        <div class="label">पढ़े जाने के लिए</div>
+                    </div>
+                    <div class="card">
+                        <h3>सदस्य</h3>
+                        <div class="number" id="total-subscribers">0</div>
+                        <div class="label">न्यूजलेटर</div>
+                    </div>
+                    <div class="card">
+                        <h3>कार्यक्रम</h3>
+                        <div class="number" id="upcoming-events">0</div>
+                        <div class="label">आने वाले</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2>हाल के संदेश</h2>
+                    </div>
+                    <div id="recent-messages">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>लोड हो रहा है...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts Page -->
+            <div id="contacts-page" class="page-content hidden-section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2>सभी संदेश</h2>
+                        <input type="text" id="search-contacts" placeholder="खोज..." class="search-input">
+                    </div>
+                    <div id="contacts-table">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>लोड हो रहा है...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Page -->
+            <div id="newsletter-page" class="page-content hidden-section">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="subscribers">सदस्य</button>
+                    <button class="tab-btn" data-tab="send-email">न्यूजलेटर भेजें</button>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2>न्यूजलेटर सदस्य</h2>
+                    </div>
+                    <div id="newsletter-table">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>लोड हो रहा है...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="send-email-section" class="send-email-section">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2>न्यूजलेटर भेजें</h2>
+                        </div>
+                        <div class="send-email-content">
+                            <div class="form-group">
+                                <label>विषय</label>
+                                <input type="text" id="newsletter-subject" placeholder="विषय दर्ज करें">
+                            </div>
+                            <div class="form-group">
+                                <label>संदेश</label>
+                                <textarea id="newsletter-content" placeholder="संदेश दर्ज करें"></textarea>
+                            </div>
+                            <button class="btn-submit" onclick="sendNewsletter()">भेजें</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Page -->
+            <div id="events-page" class="page-content hidden-section">
+                <button class="btn btn-view event-form-container" onclick="showEventModal()"><i class="fas fa-plus"></i>नया कार्यक्रम</button>
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2>सभी कार्यक्रम</h2>
+                    </div>
+                    <div id="events-table">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>लोड हो रहा है...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div id="analytics-page" class="page-content hidden-section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2>विश्लेषण डेटा</h2>
+                    </div>
+                    <div id="analytics-content" class="analytics-content">
+                        <p>विश्लेषण चार्ट यहाँ दिखेंगे (Chart.js के साथ एकीकृत करें)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>संदेश विवरण</h2>
+                <button class="close-btn" onclick="closeModal('message-modal')">&times;</button>
+            </div>
+            <div id="message-detail"></div>
+        </div>
+    </div>
+
+    <div id="event-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>कार्यक्रम</h2>
+                <button class="close-btn" onclick="closeModal('event-modal')">&times;</button>
+            </div>
+            <form id="event-form" onsubmit="saveEvent(event)">
+                <div class="form-group">
+                    <label>शीर्षक</label>
+                    <input type="text" id="event-title" required>
+                </div>
+                <div class="form-group">
+                    <label>विवरण</label>
+                    <textarea id="event-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>तारीख</label>
+                    <input type="date" id="event-date" required>
+                </div>
+                <div class="form-group">
+                    <label>समय शुरुआत</label>
+                    <input type="time" id="event-start-time">
+                </div>
+                <div class="form-group">
+                    <label>समय अंत</label>
+                    <input type="time" id="event-end-time">
+                </div>
+                <div class="form-group">
+                    <label>श्रेणी</label>
+                    <select id="event-category" class="form-select">
+                        <option value="yoga">योग</option>
+                        <option value="meditation">ध्यान</option>
+                        <option value="bhajan">भजन</option>
+                        <option value="seminar">सेमिनार</option>
+                        <option value="pooja">पूजा</option>
+                        <option value="other">अन्य</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">सहेजें</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.dataset.page;
+                showPage(page);
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                if (tab === 'subscribers') {
+                    document.getElementById('newsletter-table').style.display = 'block';
+                    document.getElementById('send-email-section').style.display = 'none';
+                } else {
+                    document.getElementById('newsletter-table').style.display = 'none';
+                    document.getElementById('send-email-section').style.display = 'block';
+                }
+            });
+        });
+
+        function showPage(page) {
+            document.querySelectorAll('[id$="-page"]').forEach(p => p.style.display = 'none');
+            document.getElementById(page + '-page').style.display = 'block';
+            
+            // Update title
+            const titles = {
+                dashboard: 'डैशबोर्ड',
+                contacts: 'संदेश',
+                newsletter: 'न्यूजलेटर',
+                events: 'कार्यक्रम',
+                analytics: 'विश्लेषण'
+            };
+            document.getElementById('page-title').textContent = titles[page];
+            
+            // Load page data
+            if (page === 'dashboard') loadDashboard();
+            else if (page === 'contacts') loadContacts();
+            else if (page === 'newsletter') loadNewsletter();
+            else if (page === 'events') loadEvents();
+        }
+
+        async function loadDashboard() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/dashboard`);
+                const data = await response.json();
+                
+                document.getElementById('total-messages').textContent = data.statistics.totalMessages;
+                document.getElementById('new-messages').textContent = data.statistics.newMessages;
+                document.getElementById('total-subscribers').textContent = data.statistics.totalSubscribers;
+                document.getElementById('upcoming-events').textContent = data.statistics.upcomingEvents;
+                
+                // Display recent messages
+                let html = '<table><thead><tr><th>नाम</th><th>ईमेल</th><th>संदेश</th><th>स्थिति</th><th>क्रिया</th></tr></thead><tbody>';
+                data.recentMessages.forEach(msg => {
+                    html += `<tr>
+                        <td>${msg.name}</td>
+                        <td>${msg.email}</td>
+                        <td>${msg.message.substring(0, 50)}...</td>
+                        <td><span class="badge ${msg.status}">${msg.status}</span></td>
+                        <td><button class="btn btn-view" onclick="viewMessage('${msg._id}')">देखें</button></td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+                document.getElementById('recent-messages').innerHTML = html;
+            } catch (error) {
+                console.error('Dashboard load error:', error);
+                document.getElementById('recent-messages').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>डेटा लोड करने में त्रुटि</p></div>';
+            }
+        }
+
+        async function loadContacts() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/contacts`);
+                const data = await response.json();
+                
+                let html = '<table><thead><tr><th>नाम</th><th>ईमेल</th><th>फोन</th><th>संदेश</th><th>स्थिति</th><th>क्रिया</th></tr></thead><tbody>';
+                data.contacts.forEach(contact => {
+                    html += `<tr>
+                        <td>${contact.name}</td>
+                        <td>${contact.email}</td>
+                        <td>${contact.phone || '-'}</td>
+                        <td>${contact.message.substring(0, 40)}...</td>
+                        <td><span class="badge ${contact.status}">${contact.status}</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-view" onclick="viewMessage('${contact._id}')"><i class="fas fa-eye"></i>देखें</button>
+                            <button class="btn btn-delete" onclick="deleteMessage('${contact._id}')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+                document.getElementById('contacts-table').innerHTML = html;
+            } catch (error) {
+                console.error('Contacts load error:', error);
+                document.getElementById('contacts-table').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>डेटा लोड करने में त्रुटि</p></div>';
+            }
+        }
+
+        async function loadNewsletter() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/newsletter/admin/subscribers`);
+                const data = await response.json();
+                
+                let html = '<table><thead><tr><th>ईमेल</th><th>नाम</th><th>सदस्य बने</th><th>क्रिया</th></tr></thead><tbody>';
+                data.subscribers.forEach(sub => {
+                    html += `<tr>
+                        <td>${sub.email}</td>
+                        <td>${sub.name || '-'}</td>
+                        <td>${new Date(sub.subscribedAt).toLocaleDateString('hi-IN')}</td>
+                        <td><button class="btn btn-delete" onclick="deleteSubscriber('${sub._id}')"><i class="fas fa-trash"></i></button></td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+                document.getElementById('newsletter-table').innerHTML = html;
+            } catch (error) {
+                console.error('Newsletter load error:', error);
+                document.getElementById('newsletter-table').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>डेटा लोड करने में त्रुटि</p></div>';
+            }
+        }
+
+        async function loadEvents() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/events`);
+                const data = await response.json();
+                
+                let html = '<table><thead><tr><th>शीर्षक</th><th>तारीख</th><th>समय</th><th>पंजीकृत</th><th>स्थिति</th><th>क्रिया</th></tr></thead><tbody>';
+                data.events.forEach(event => {
+                    html += `<tr>
+                        <td>${event.title}</td>
+                        <td>${new Date(event.date).toLocaleDateString('hi-IN')}</td>
+                        <td>${event.startTime || '-'}</td>
+                        <td>${event.registeredCount || 0}</td>
+                        <td><span class="badge ${event.status}">${event.status}</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-edit" onclick="editEvent('${event._id}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-delete" onclick="deleteEvent('${event._id}')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+                document.getElementById('events-table').innerHTML = html;
+            } catch (error) {
+                console.error('Events load error:', error);
+                document.getElementById('events-table').innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>डेटा लोड करने में त्रुटि</p></div>';
+            }
+        }
+
+        async function viewMessage(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/contact/${id}`);
+                const data = await response.json();
+                const contact = data.contact;
+                
+                let html = `
+                    <div style="padding: 20px;">
+                        <p><strong>नाम:</strong> ${contact.name}</p>
+                        <p><strong>ईमेल:</strong> ${contact.email}</p>
+                        <p><strong>फोन:</strong> ${contact.phone || 'नहीं दिया'}</p>
+                        <p><strong>विषय:</strong> ${contact.subject || '-'}</p>
+                        <p><strong>संदेश:</strong></p>
+                        <div style="background-color: #f5f5f5; padding: 10px; border-radius: 4px;">
+                            ${contact.message}
+                        </div>
+                        <p><strong>प्राप्त:</strong> ${new Date(contact.createdAt).toLocaleString('hi-IN')}</p>
+                        <div style="margin-top: 20px;">
+                            <textarea id="reply-text" style="width: 100%; min-height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="जवाब टाइप करें..."></textarea>
+                        </div>
+                        <button class="btn-submit" style="margin-top: 10px;" onclick="sendReply('${contact._id}')">जवाब भेजें</button>
+                    </div>
+                `;
+                document.getElementById('message-detail').innerHTML = html;
+                document.getElementById('message-modal').classList.add('active');
+            } catch (error) {
+                console.error('View message error:', error);
+            }
+        }
+
+        function showEventModal() {
+            document.getElementById('event-form').reset();
+            document.getElementById('event-modal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = '../index.html';
+        }
+
+        // Initialize dashboard
+        showPage('dashboard');
+    </script>
+</body>
+</html>
