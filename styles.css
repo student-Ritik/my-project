@@ -46,8 +46,13 @@ body {
     color: white;
 }
 
-.logo i {
-    font-size: 2rem;
+.logo img {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .nav-menu {
