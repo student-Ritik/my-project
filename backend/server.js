@@ -77,7 +77,14 @@ const publicFiles = {
     '/sitemap.xml': 'sitemap.xml',
     '/aasram.jpeg': 'aasram.jpeg',
     '/as2.jpeg': 'as2.jpeg',
-    '/baba.jpeg': 'baba.jpeg'
+    '/baba.jpeg': 'baba.jpeg',
+    '/A.png': 'A.png',
+    '/B.png': 'B.png',
+    '/C.png': 'C.png',
+    '/D.png': 'D.png',
+    '/E.png': 'E.png',
+    '/F.png': 'F.png',
+    '/G.png': 'G.png'
 };
 
 function serveWebsite(req, res) {
