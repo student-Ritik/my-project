@@ -1,0 +1,282 @@
+/* Default rang (Yellow). JS isko badalta hai */
+:root {
+  --rgb: 255, 214, 110;
+  --shade-1: #ffcf5c;
+  --shade-2: #f0a92e;
+  --core: #fff4c2;
+  --btn-text: #201600;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #07080d;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Hidden checkboxes = lamp switches */
+.toggle { position: absolute; opacity: 0; pointer-events: none; }
+
+/* ---------- Background picture ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: url("bg.png") 60% 30% / cover no-repeat;
+}
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #07080d;
+  opacity: .85;                     /* dono lamp OFF: bahut dark */
+  transition: opacity .5s ease;
+}
+#lamp1:checked ~ .bg::after,
+#lamp2:checked ~ .bg::after { opacity: .65; }            /* ek lamp ON */
+
+#lamp1:checked ~ #lamp2:checked ~ .bg::after { opacity: .4; }   /* dono lamp ON */
+
+/* ---------- Room ---------- */
+.room {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 230px 16px 40px;
+  overflow: hidden;
+}
+
+/* Room glow (left + right) */
+.room::before,
+.room::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+.room::before { background: radial-gradient(circle at 22% 20%, rgba(var(--rgb), .28), transparent 55%); }
+.room::after  { background: radial-gradient(circle at 78% 20%, rgba(var(--rgb), .28), transparent 55%); }
+#lamp1:checked ~ .room::before { opacity: 1; }
+#lamp2:checked ~ .room::after  { opacity: 1; }
+
+/* ---------- Lamp ---------- */
+.lamp {
+  position: absolute;
+  top: 0;
+  width: 130px;
+  height: 240px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.l1 { left: 22%; }
+.l2 { left: 78%; }
+
+.wire {
+  width: 2px;
+  height: 110px;
+  background: #4b4f60;
+  margin: 0 auto;
+}
+
+.shade {
+  width: 110px;
+  height: 62px;
+  margin: 0 auto;
+  background: linear-gradient(#3b4055, #2a2e3f);
+  clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+  transition: background .4s ease;
+}
+
+.bulb {
+  position: absolute;
+  top: 158px;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #555a6b;
+  transition: background .4s ease, box-shadow .4s ease;
+}
+
+.cone {
+  position: absolute;
+  top: 172px;
+  left: 50%;
+  width: 320px;
+  height: 380px;
+  transform: translateX(-50%);
+  background: linear-gradient(rgba(var(--rgb), .5), transparent 90%);
+  clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+
+/* Pull cord */
+.cord {
+  position: absolute;
+  top: 150px;
+  left: calc(50% + 40px);
+  width: 26px;
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cord::before { content: ""; flex: 1; width: 2px; background: #9aa0b4; }
+.knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e5e7ee;
+  box-shadow: 0 0 0 2px #9aa0b4;
+}
+.cord:active { transform: translateY(12px); }
+
+/* Lamp ON states */
+#lamp1:checked ~ .room .l1 .shade,
+#lamp2:checked ~ .room .l2 .shade {
+  background: linear-gradient(var(--shade-1), var(--shade-2));
+}
+
+#lamp1:checked ~ .room .l1 .bulb,
+#lamp2:checked ~ .room .l2 .bulb {
+  background: var(--core);
+  box-shadow: 0 0 25px 10px rgba(var(--rgb), .9), 0 0 80px 30px rgba(var(--rgb), .5);
+}
+
+#lamp1:checked ~ .room .l1 .cone,
+#lamp2:checked ~ .room .l2 .cone { opacity: 1; }
+
+#lamp1:focus-visible ~ .room .l1 .cord,
+#lamp2:focus-visible ~ .room .l2 .cord {
+  outline: 2px solid rgb(var(--rgb));
+  border-radius: 6px;
+}
+
+/* ---------- Login card ---------- */
+.card {
+  position: relative;
+  z-index: 3;
+  width: min(360px, 100%);
+  padding: 32px 26px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(8px);
+  opacity: .3;                      /* dono lamp OFF */
+  transition: opacity .5s ease, box-shadow .5s ease;
+}
+#lamp1:checked ~ .room .card,
+#lamp2:checked ~ .room .card { opacity: .7; }        /* ek lamp ON */
+
+#lamp1:checked ~ #lamp2:checked ~ .room .card {      /* dono lamp ON */
+  opacity: 1;
+  box-shadow: 0 0 60px rgba(var(--rgb), .25);
+}
+
+.card h1 { font-size: 1.6rem; text-align: center; margin-bottom: 6px; }
+.card p.sub { text-align: center; color: #b7bccd; font-size: .9rem; margin-bottom: 22px; }
+
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: .85rem; color: #c9cddc; margin-bottom: 6px; }
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field input:focus {
+  border-color: rgb(var(--rgb));
+  box-shadow: 0 0 0 3px rgba(var(--rgb), .25);
+}
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--shade-1), var(--shade-2));
+  color: var(--btn-text);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.hint {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: .8rem;
+  color: #7c8197;
+  z-index: 3;
+}
+
+.login-error {
+  margin: -4px 0 14px;
+  color: #ff9292;
+  font-size: .9rem;
+  text-align: center;
+}
+
+.btn:disabled { opacity: .65; cursor: wait; }
+
+.install-app {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 5;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 8px;
+  background: rgba(7,8,13,.72);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.install-app[hidden] { display: none; }
+
+/* ---------- Color switcher ---------- */
+.switcher {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+.dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.35);
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.dot:hover { transform: scale(1.2); }
+.dot.active {
+  border-color: #fff;
+  transform: scale(1.2);
+}

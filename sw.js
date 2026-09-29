@@ -1,11 +1,11 @@
-const CACHE_NAME = 'kabir-aasram-v1';
+const CACHE_NAME = 'kabir-aasram-v3';
 const assetsToCache = [
-  './',
-  './index.html',
   './styles.css',
   './script.js',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
 self.addEventListener('install', event => {

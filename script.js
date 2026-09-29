@@ -1,5 +1,45 @@
 // API Configuration
-const API_BASE_URL = localStorage.getItem('API_BASE_URL') || 'http://localhost:5000/api';
+const DEFAULT_API_BASE_URL = window.location.protocol === 'file:'
+    ? 'http://localhost:5000/api'
+    : `${window.location.origin}/api`;
+const API_BASE_URL = localStorage.getItem('API_BASE_URL') || DEFAULT_API_BASE_URL;
+
+let deferredInstallPrompt = null;
+const installButton = document.getElementById('install-app');
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+if (installButton) {
+    installButton.hidden = Boolean(isStandalone);
+
+    window.addEventListener('beforeinstallprompt', event => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+    });
+
+    installButton.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) {
+            const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+            alert(isIos
+                ? 'Safari ke Share menu se Add to Home Screen chunein.'
+                : 'App install ke liye HTTPS website kholen, phir browser menu se Install app chunein.');
+            return;
+        }
+
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+        installButton.hidden = true;
+        deferredInstallPrompt = null;
+    });
+}
+
+const adminLoginLink = document.getElementById('admin-login-link');
+if (adminLoginLink && window.location.protocol === 'file:') {
+    adminLoginLink.href = 'http://localhost:5000/admin/login.html';
+}
 
 // Mobile Menu Toggle
 const hamburger = document.getElementById('hamburger');

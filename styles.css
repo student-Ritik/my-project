@@ -67,6 +67,16 @@ body {
     color: #FFD700;
 }
 
+.install-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8B4513">
+    <title>Admin Login | Kabir Aasram</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <!-- Lamp switches (.bg aur .room se pehle hi rehne chahiye) -->
+  <input type="checkbox" id="lamp1" class="toggle" aria-label="Left lamp">
+  <input type="checkbox" id="lamp2" class="toggle" aria-label="Right lamp">
+
+  <!-- Background picture -->
+  <div class="bg"></div>
+
+  <main class="room">
+
+    <!-- Left lamp -->
+    <div class="lamp l1">
+      <div class="wire"></div>
+      <div class="shade"></div>
+      <div class="bulb"></div>
+      <div class="cone"></div>
+      <label for="lamp1" class="cord" title="Rassi kheencho"><span class="knob"></span></label>
+    </div>
+
+    <!-- Right lamp -->
+    <div class="lamp l2">
+      <div class="wire"></div>
+      <div class="shade"></div>
+      <div class="bulb"></div>
+      <div class="cone"></div>
+      <label for="lamp2" class="cord" title="Rassi kheencho"><span class="knob"></span></label>
+    </div>
+
+    <!-- Login form -->
+    <form class="card" id="login-form">
+      <h1>Welcome Back</h1>
+      <p class="sub">Kabir Aasram website dekhne ke liye login karein</p>
+
+      <div class="field">
+        <label for="email">Admin ID (Email)</label>
+        <input type="email" id="email" name="email" autocomplete="username" placeholder="you@example.com" required>
+      </div>
+
+      <div class="field">
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="password" autocomplete="current-password" placeholder="••••••••" required>
+      </div>
+
+      <p class="login-error" id="login-error" role="alert" aria-live="polite" hidden></p>
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <p class="hint">Lamp ki rassi (cord) kheencho ya click karo</p>
+    <button type="button" class="install-app" id="install-app">ऐप इंस्टॉल करें</button>
+
+    <!-- Color switcher (7 colors) -->
+    <div class="switcher">
+      <button type="button" class="dot" data-c="yellow" style="background:#f0a92e" aria-label="Yellow"></button>
+      <button type="button" class="dot" data-c="red"    style="background:#d62c2c" aria-label="Red"></button>
+      <button type="button" class="dot" data-c="pink"   style="background:#e0358a" aria-label="Pink"></button>
+      <button type="button" class="dot" data-c="purple" style="background:#7a3fe0" aria-label="Purple"></button>
+      <button type="button" class="dot" data-c="blue"   style="background:#2a6fd6" aria-label="Blue"></button>
+      <button type="button" class="dot" data-c="cyan"   style="background:#1fa7bd" aria-label="Cyan"></button>
+      <button type="button" class="dot" data-c="green"  style="background:#24a765" aria-label="Green"></button>
+    </div>
+  </main>
+
+    <script src="login.js"></script>
+</body>
+</html>

@@ -891,9 +891,15 @@
             document.getElementById(modalId).classList.remove('active');
         }
 
-        function logout() {
-            localStorage.clear();
-            window.location.href = '../index.html';
+        async function logout() {
+            try {
+                await fetch(`${API_BASE_URL}/admin/auth/logout`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+            } finally {
+                window.location.href = '/admin/login.html';
+            }
         }
 
         // Initialize dashboard

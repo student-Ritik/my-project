@@ -3,6 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const database = require('./db');
+const { isAdminAuthenticated, requireAdminAuth } = require('./middleware/adminAuth');
 
 // Load environment variables
 dotenv.config();
@@ -23,15 +24,30 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
-app.use('/api/contact', require('./routes/contact'));
-app.use('/api/newsletter', require('./routes/newsletter'));
-app.use('/api/programs', require('./routes/programs'));
-app.use('/api/events', require('./routes/events'));
-app.use('/api/admin', require('./routes/admin'));
+// Admin authentication and protected routes
+app.use('/api/admin/auth', require('./routes/adminAuth'));
+app.use('/api/admin', requireAdminAuth, require('./routes/admin'));
+app.use('/api/newsletter/admin', requireAdminAuth);
+app.use('/api/events/admin', requireAdminAuth);
+app.use('/api/contact/messages', requireAdminAuth);
+app.use('/api/contact/:id', requireAdminAuth);
 
-// Serve Admin Dashboard
-app.use('/admin', express.static(path.join(__dirname, '../admin')));
+// Require a login for all website data and form APIs.
+app.use('/api/contact', requireAdminAuth, require('./routes/contact'));
+app.use('/api/newsletter', requireAdminAuth, require('./routes/newsletter'));
+app.use('/api/programs', requireAdminAuth, require('./routes/programs'));
+app.use('/api/events', requireAdminAuth, require('./routes/events'));
+
+// Require an authenticated session before serving the dashboard HTML.
+const projectDirectory = path.join(__dirname, '..');
+const adminDirectory = path.join(projectDirectory, 'admin');
+app.get(['/admin', '/admin/', '/admin/index.html'], (req, res) => {
+    if (!isAdminAuthenticated(req)) {
+        return res.redirect('/admin/login.html');
+    }
+    res.sendFile(path.join(adminDirectory, 'index.html'));
+});
+app.use('/admin', express.static(adminDirectory, { index: false }));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -47,22 +63,35 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
-    res.json({ 
-        message: '🙏 Kabir Aasram Backend API',
-        version: '1.0.0',
-        status: '✅ Running',
-        mode: 'Testing Mode (In-Memory Database)',
-        endpoints: {
-            contact: '/api/contact',
-            newsletter: '/api/newsletter',
-            programs: '/api/programs',
-            events: '/api/events',
-            admin: '/api/admin',
-            health: '/api/health',
-            dashboard: '/admin/'
-        }
+// Serve only the public website files, not the backend source tree.
+const publicFiles = {
+    '/styles.css': 'styles.css',
+    '/script.js': 'script.js',
+    '/config.js': 'config.js',
+    '/manifest.json': 'manifest.json',
+    '/sw.js': 'sw.js',
+    '/icon.svg': 'icon.svg',
+    '/icon-192.png': 'icon-192.png',
+    '/icon-512.png': 'icon-512.png',
+    '/robots.txt': 'robots.txt',
+    '/sitemap.xml': 'sitemap.xml',
+    '/aasram.jpeg': 'aasram.jpeg',
+    '/as2.jpeg': 'as2.jpeg',
+    '/baba.jpeg': 'baba.jpeg'
+};
+
+function serveWebsite(req, res) {
+    if (!isAdminAuthenticated(req)) {
+        return res.redirect('/admin/login.html');
+    }
+
+    res.sendFile(path.join(projectDirectory, 'index.html'));
+}
+app.get('/', serveWebsite);
+app.get('/index.html', serveWebsite);
+app.get(Object.keys(publicFiles), (req, res, next) => {
+    res.sendFile(path.join(projectDirectory, publicFiles[req.path]), error => {
+        if (error) next(error);
     });
 });
 

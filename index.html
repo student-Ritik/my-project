@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -14,8 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon-192.png">
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
@@ -30,6 +32,8 @@
                 <li><a href="#programs" class="nav-link">कार्यक्रम</a></li>
                 <li><a href="#gallery" class="nav-link">गैलरी</a></li>
                 <li><a href="#contact" class="nav-link">संपर्क</a></li>
+                <li><a href="/admin/login.html" id="admin-login-link" class="nav-link">लॉगिन</a></li>
+                <li><button type="button" class="nav-link install-app" id="install-app"><i class="fas fa-download" aria-hidden="true"></i> ऐप इंस्टॉल करें</button></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -43,8 +47,10 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>कबीर आश्रम जयनगर सीतामढ़ी, बिहार</h1>
-            <p>आध्यात्मिक विकास और आंतरिक शांति का केंद्र & "इस आश्रम का निर्माण श्री सद्गुरु विचार साहेब जी महाराज तथा संजीव बाबा (छोटे बाबा) के मार्गदर्शन एवं प्रेरणा से किया गया है।"</p>
-            <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">हमसे जुड़ें</button>
+            <p>आध्यात्मिक विकास और आंतरिक शांति का केंद्र & "इस आश्रम का निर्माण श्री सद्गुरु विचार साहेब जी महाराज तथा
+                संजीव बाबा (छोटे बाबा) के मार्गदर्शन एवं प्रेरणा से किया गया है।"</p>
+            <button class="cta-button"
+                onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">हमसे जुड़ें</button>
         </div>
         <div class="hero-overlay"></div>
     </section>
@@ -55,10 +61,21 @@
             <h2>आश्रम के बारे में</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>कबीर आश्रम जयनगर एक प्राचीन आध्यात्मिक केंद्र है कबीर साहेब जी महाराज भारत के महान संत, समाज सुधारक और कवि थे। उनका जन्म 15वीं शताब्दी में माना जाता है। उन्होंने अपने जीवन में सत्य, प्रेम, भक्ति और मानवता का संदेश दिया। कबीर साहेब ने जाति-पाति, ऊँच-नीच, अंधविश्वास तथा धार्मिक आडंबरों का विरोध किया। उनका मानना था कि ईश्वर एक है और उसे सच्चे मन से भक्ति करने पर प्राप्त किया जा सकता है।
+                    <p>कबीर आश्रम जयनगर एक प्राचीन आध्यात्मिक केंद्र है कबीर साहेब जी महाराज भारत के महान संत, समाज
+                        सुधारक और कवि थे। उनका जन्म 15वीं शताब्दी में माना जाता है। उन्होंने अपने जीवन में सत्य, प्रेम,
+                        भक्ति और मानवता का संदेश दिया। कबीर साहेब ने जाति-पाति, ऊँच-नीच, अंधविश्वास तथा धार्मिक आडंबरों
+                        का विरोध किया। उनका मानना था कि ईश्वर एक है और उसे सच्चे मन से भक्ति करने पर प्राप्त किया जा
+                        सकता है।
 
-                      कबीर साहेब ने लोगों को आपस में प्रेम और भाईचारे के साथ रहने की शिक्षा दी। उन्होंने हिंदू और मुस्लिम दोनों समुदायों को समान दृष्टि से देखा तथा समाज में फैली बुराइयों को दूर करने का प्रयास किया। उनकी वाणी सरल, प्रभावशाली और जनसाधारण की भाषा में थी, जिसे आज भी लोग श्रद्धा से पढ़ते और सुनते हैं। उनके दोहे जीवन के महत्वपूर्ण संदेश देते हैं और हमें सही मार्ग पर चलने की प्रेरणा प्रदान करते हैं।</p>
-                    <p>कबीर साहेब का जीवन सादगी, सत्य और सेवा का प्रतीक था। उनके विचार आज भी उतने ही प्रासंगिक हैं जितने उस समय थे। उन्होंने मानवता को सर्वोपरि माना और लोगों को प्रेम, करुणा तथा सदाचार का मार्ग अपनाने की प्रेरणा दी। इसी कारण कबीर साहेब जी महाराज को भारत के महान संतों में विशेष स्थान प्राप्त है।</p>
+                        कबीर साहेब ने लोगों को आपस में प्रेम और भाईचारे के साथ रहने की शिक्षा दी। उन्होंने हिंदू और
+                        मुस्लिम दोनों समुदायों को समान दृष्टि से देखा तथा समाज में फैली बुराइयों को दूर करने का प्रयास
+                        किया। उनकी वाणी सरल, प्रभावशाली और जनसाधारण की भाषा में थी, जिसे आज भी लोग श्रद्धा से पढ़ते और
+                        सुनते हैं। उनके दोहे जीवन के महत्वपूर्ण संदेश देते हैं और हमें सही मार्ग पर चलने की प्रेरणा
+                        प्रदान करते हैं।</p>
+                    <p>कबीर साहेब का जीवन सादगी, सत्य और सेवा का प्रतीक था। उनके विचार आज भी उतने ही प्रासंगिक हैं जितने
+                        उस समय थे। उन्होंने मानवता को सर्वोपरि माना और लोगों को प्रेम, करुणा तथा सदाचार का मार्ग अपनाने
+                        की प्रेरणा दी। इसी कारण कबीर साहेब जी महाराज को भारत के महान संतों में विशेष स्थान प्राप्त है।
+                    </p>
                 </div>
                 <div class="about-features">
                     <div class="feature">
@@ -221,7 +238,8 @@
                 <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
                 <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
                 <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@sadgurubhikharibaba" target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube Channel">
+                <a href="https://youtube.com/@sadgurubhikharibaba" target="_blank" rel="noopener noreferrer"
+                    title="YouTube" aria-label="YouTube Channel">
                     <i class="fab fa-youtube"></i>
                 </a>
             </div>
@@ -239,4 +257,5 @@
         }
     </script>
 </body>
+
 </html>
